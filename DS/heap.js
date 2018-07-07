@@ -61,7 +61,8 @@ class Heap{
 
   peek(){
     if(this._size > 0) return this._heap[0];
-    return null;
+    
+    throw "Heap Empty"
   }
 
   hasValue(element){
@@ -197,6 +198,22 @@ class Heap{
     this._heap[index2] = temp;
   }
 
+  _minChildOf(parentIndex){
+    let rightChildIndex = this._getRightChildIndex(parentIndex);
+    let leftChildIndex = this._getLeftChildIndex(parentIndex);
+
+    let minChildIndex = -1;
+    
+    if(rightChildIndex < this._size){
+      minChildIndex = this._heap[rightChildIndex] <= this._heap[leftChildIndex] ? rightChildIndex : leftChildIndex;
+    }
+    else if(leftChildIndex < this._size){
+      minChildIndex = leftChildIndex;
+    }
+    
+    return minChildIndex >= 0 ? this._heap[minChildIndex] : null;
+  }
+  
 }
 
 module.exports =  {

@@ -1,18 +1,14 @@
-const Heap = require('./DS/heap').Heap;
+const Tree = require('./DS/bst')
 
-let minHeap = new Heap();
+let tree = new Tree();
 
-minHeap.add(1);
-minHeap.add(2);
-minHeap.add(3);
-minHeap.add(4);
-minHeap.add(5);
-minHeap.add(7);
-minHeap.add(3);
-minHeap.add(1);
+let input = "5 6 8 9 1 3 10";
 
-minHeap.add(-4);
+let inputArr = input.split(' ').map(x => parseInt(x));
 
-console.log(minHeap._heap);
+for(let i=0;i<inputArr.length;i++){
+  tree.insert(inputArr[i]);
+}
 
-console.log(minHeap._find(1,0));
+console.log(tree.max(tree.root))  
+
