@@ -2,6 +2,13 @@ const Node = require('./treeNode');
 
 const Queue = require('./queue');
 
+class QItem {
+  constructor(node,distance){
+    this.node = node;
+    this.distance = distance;
+  }
+}
+
 class BST{
 
   constructor(){
@@ -61,6 +68,65 @@ class BST{
         queue.enqueue(node.right);
       }
     }
+
+  }
+
+  topView(root){
+
+    /* 
+    
+    The distance in QItem are use to track the horizontal distance of the node from root.
+    Queue is used so that the tree is traversed in correct order.
+    If a node is first to visit a horizontal distance, it will be on top, so add it in the map.
+    Else, it is shadowed so don't add it in map, but add its child to queue, which may not be shadowed.
+    
+    For Items in Queue,
+      distance => horizontal distance
+      node => respective node
+    
+	*/
+
+
+    let distance = {};
+    
+    let q = new Queue();
+    
+    let hd = 0;
+    
+    let qItem = new QItem(root,hd);
+
+    q.enqueue(qItem);
+    
+    while(!q.isEmpty()){
+      
+      let qHead = q.dequeue();
+      
+      if(distance[qHead.distance] === undefined){
+        distance[qHead.distance] = qHead.node.data;
+      }
+      
+      if(qHead.node.left != null){
+        let child = new QItem(qHead.node.left,qHead.distance - 1);
+        q.enqueue(child);
+      }
+      if(qHead.node.right != null){
+        let child = new QItem(qHead.node.right,qHead.distance + 1);
+        q.enqueue(child);
+      }
+      
+    }
+    
+    let distanceArray = Object.keys(distance).map(x => parseInt(x));
+
+    distanceArray = distanceArray.sort(function(a,b){return a - b});
+    
+    let topView = "";
+
+    for(let i = 0;i < distanceArray.length;i++){
+      topView += distance[distanceArray[i]] + " ";
+    }
+
+    return topView;
 
   }
 
