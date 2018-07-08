@@ -1,5 +1,7 @@
 const Node = require('./treeNode');
 
+const Queue = require('./queue');
+
 class BST{
 
   constructor(){
@@ -39,6 +41,27 @@ class BST{
       this.postOrder(node.right);
       console.log(node.data);
     }
+  }
+
+  levelOrder(root){
+    
+    let queue  = new Queue();
+
+    queue.enqueue(root);
+
+    while(!queue.isEmpty()){
+
+      let node  = queue.dequeue();
+
+      console.log(node.data);
+
+      if(node.left != null)
+        queue.enqueue(node.left);
+      if(node.right != null){
+        queue.enqueue(node.right);
+      }
+    }
+
   }
 
   height(node) {

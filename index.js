@@ -10,5 +10,6 @@ for(let i=0;i<inputArr.length;i++){
   tree.insert(inputArr[i]);
 }
 
-console.log(tree.max(tree.root))  
+tree.levelOrder(tree.root)
+
 
