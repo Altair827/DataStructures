@@ -159,7 +159,14 @@ class BST{
     }
     return node.data;
   }
+  
+  isBST(root) {
 
+    return this._checkBST(root,Number.MIN_SAFE_INTEGER,Number.MAX_SAFE_INTEGER);
+
+  }
+
+  
   //private methods
 
   _placeNode(parent,newNode){
@@ -178,6 +185,20 @@ class BST{
       }
       return parent;
     }
+  }
+  
+  _checkBST(node,minOfSubtree,maxOfSubtree){
+    
+    if(node === null)
+      return true;
+    
+    if(node.data > minOfSubtree && node.data < maxOfSubtree){
+      return (this._checkBST(node.left,minOfSubtree,node.data)) && (this._checkBST(node.right,node.data,maxOfSubtree));
+    }
+    else{
+      return false;
+    }
+    
   }
 
 }

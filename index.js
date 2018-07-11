@@ -10,6 +10,6 @@ for(let i=0;i<inputArr.length;i++){
   tree.insert(inputArr[i]);
 }
 
-console.log(tree.topView(tree.root));
+console.log(tree.isBST(tree.root));
 
 
